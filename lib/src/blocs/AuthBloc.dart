@@ -12,6 +12,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (event is UnAuthenticated) {
       print('Anonymous Authorization');
       yield UnAuthenticatedLoaded();
+    } else if (event is Login) {
+      print('Login with username ${event.username} and password ${event.password}');
+    } else if (event is Signup) {
+      print('Signup with username ${event.username} and password ${event.password}');
+    } else {
+      print('Unknown event');
     }
   }
 }

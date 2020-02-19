@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hookah_nation_client_app/src/blocs/AuthBloc.dart';
+import 'package:hookah_nation_client_app/src/blocs/AuthEvent.dart';
+import 'package:hookah_nation_client_app/src/blocs/AuthState.dart';
 
 enum AuthMode { LOGIN, SINGUP, FORGOTPASSWORD }
 
@@ -14,6 +18,35 @@ class AuthorizationScreenState extends State<AuthorizationScreen> {
   double screenHeight;
   // Set intial mode to login
   AuthMode _authMode = AuthMode.LOGIN;
+
+  TextEditingController _signupNameController;
+  TextEditingController _signupEmailController;
+  TextEditingController _signupPasswordController;
+
+  TextEditingController _loginEmailController;
+  TextEditingController _loginPasswordController;
+
+  @override
+  void initState() {
+    super.initState();
+    _signupNameController = TextEditingController();
+    _signupEmailController = TextEditingController();
+    _signupPasswordController = TextEditingController();
+
+    _loginEmailController = TextEditingController();
+    _loginPasswordController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _signupNameController.dispose();
+    _signupEmailController.dispose();
+    _signupPasswordController.dispose();
+
+    _loginEmailController.dispose();
+    _loginPasswordController.dispose();
+  }
 
   Widget pageTitle() {
     return Container(
@@ -71,6 +104,7 @@ class AuthorizationScreenState extends State<AuthorizationScreen> {
                     height: 15,
                   ),
                   TextFormField(
+                    controller: _loginEmailController,
                     decoration: InputDecoration(
                       labelText: "Your Email",
                       hasFloatingPlaceholder: true
@@ -80,6 +114,7 @@ class AuthorizationScreenState extends State<AuthorizationScreen> {
                     height: 20,
                   ),
                   TextFormField(
+                    controller: _loginPasswordController,
                     decoration: InputDecoration(
                       labelText: "Password",
                       hasFloatingPlaceholder: true
@@ -107,7 +142,7 @@ class AuthorizationScreenState extends State<AuthorizationScreen> {
                             left: 38, right: 38, top: 15, bottom: 15),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5)),
-                        onPressed: () {},
+                        onPressed: () => BlocProvider.of<AuthBloc>(context)..add(Login(username: _loginEmailController.text, password: _loginPasswordController.text)),
                       )
                     ],
                   )
@@ -173,6 +208,7 @@ class AuthorizationScreenState extends State<AuthorizationScreen> {
                     height: 15,
                   ),
                   TextFormField(
+                    controller: _signupNameController,
                     decoration: InputDecoration(
                         labelText: "Your Name", hasFloatingPlaceholder: true),
                   ),
@@ -180,6 +216,7 @@ class AuthorizationScreenState extends State<AuthorizationScreen> {
                     height: 15,
                   ),
                   TextFormField(
+                    controller: _signupEmailController,
                     decoration: InputDecoration(
                         labelText: "Your Email", hasFloatingPlaceholder: true),
                   ),
@@ -187,6 +224,7 @@ class AuthorizationScreenState extends State<AuthorizationScreen> {
                     height: 20,
                   ),
                   TextFormField(
+                    controller: _signupPasswordController,
                     decoration: InputDecoration(
                         labelText: "Password", hasFloatingPlaceholder: true),
                   ),
@@ -214,7 +252,7 @@ class AuthorizationScreenState extends State<AuthorizationScreen> {
                             left: 38, right: 38, top: 15, bottom: 15),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5)),
-                        onPressed: () {},
+                        onPressed: () => BlocProvider.of(context)..add(Signup(username: _signupEmailController.text, password: _signupPasswordController.text)),
                       ),
                     ],
                   ),
@@ -262,19 +300,27 @@ class AuthorizationScreenState extends State<AuthorizationScreen> {
   @override
   Widget build(BuildContext context) {
     screenHeight = MediaQuery.of(context).size.height;
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Stack(
-          children: <Widget>[
-            lowerHalf(context),
-          
-            _authMode == AuthMode.LOGIN
-                ? loginCard(context)
-                : singUpCard(context), // <--- The card that sings :)
-            pageTitle(),
-          ],
-        ),
-      ),
+    return BlocBuilder<AuthBloc, AuthState>(
+      builder: (BuildContext context, AuthState state) {
+        if (state is UnAuthenticatedLoaded) {
+          return Scaffold(
+            body: SingleChildScrollView(
+              child: Stack(
+                children: <Widget>[
+                  lowerHalf(context),
+                
+                  _authMode == AuthMode.LOGIN
+                      ? loginCard(context)
+                      : singUpCard(context), // <--- The card that sings :)
+                  pageTitle(),
+                ],
+              ),
+            ),
+          );
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      },
     );
   }
 }
