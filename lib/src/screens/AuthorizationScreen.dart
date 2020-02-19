@@ -252,7 +252,7 @@ class AuthorizationScreenState extends State<AuthorizationScreen> {
                             left: 38, right: 38, top: 15, bottom: 15),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5)),
-                        onPressed: () => BlocProvider.of(context)..add(Signup(username: _signupEmailController.text, password: _signupPasswordController.text)),
+                        onPressed: () => BlocProvider.of<AuthBloc>(context)..add(Signup(username: _signupEmailController.text, password: _signupPasswordController.text)),
                       ),
                     ],
                   ),

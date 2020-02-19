@@ -10,3 +10,7 @@ class AuthState extends Equatable {
 class UnAuthenticatedLoading extends AuthState {}
 
 class UnAuthenticatedLoaded extends AuthState {}
+
+class LoggedIn extends AuthState {}
+
+class SignedUp extends AuthState {}
