@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hookah_nation_client_app/src/blocs/AuthBloc.dart';
 
-import 'package:hookah_nation_client_app/src/screens/HomeScreen.dart';
+import 'package:hookah_nation_client_app/src/screens/AuthorizationScreen.dart';
 import 'package:hookah_nation_client_app/src/blocs/AuthState.dart';
 
 class App extends StatelessWidget {
@@ -24,7 +24,7 @@ class App extends StatelessWidget {
               // is not restarted.
               primarySwatch: Colors.blue,
             ),
-            home: MyHomePage(title: 'hookah_nation'),
+            home: AuthorizationScreen(),
           ),
         );
       }
