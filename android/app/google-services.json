@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "663082722278",
+    "firebase_url": "https://hookah-nation-66b00.firebaseio.com",
+    "project_id": "hookah-nation-66b00",
+    "storage_bucket": "hookah-nation-66b00.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:663082722278:android:346511b29e93785ad5ec27",
+        "android_client_info": {
+          "package_name": "com.example.hookah_nation_client_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "663082722278-0kda87j8hf0pf9bkbehjdnl2bkat99r4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgVVh4yaBYxku2FxMuq4SJY_z-ynO6VuM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "663082722278-0kda87j8hf0pf9bkbehjdnl2bkat99r4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
