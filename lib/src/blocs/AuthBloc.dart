@@ -5,13 +5,13 @@ import 'package:hookah_nation_client_app/src/blocs/AuthState.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   @override
-  AuthState get initialState => AuthLoading();
+  AuthState get initialState => UnAuthenticatedLoading();
 
   @override
   Stream<AuthState> mapEventToState(AuthEvent event) async* {
-    if (event is AnonymousAuth) {
+    if (event is UnAuthenticated) {
       print('Anonymous Authorization');
-      yield AuthLoaded();
+      yield UnAuthenticatedLoaded();
     }
   }
 }

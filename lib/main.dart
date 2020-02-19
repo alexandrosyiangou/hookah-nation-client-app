@@ -11,7 +11,7 @@ void main() {
   BlocSupervisor.delegate = SimpleBlocDelegate();
   runApp(
     BlocProvider(
-      create: (BuildContext context) => AuthBloc()..add(AnonymousAuth()),
+      create: (BuildContext context) => AuthBloc()..add(UnAuthenticated()),
       child: App()
     )
   );
