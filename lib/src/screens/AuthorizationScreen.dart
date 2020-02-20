@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hookah_nation_client_app/src/blocs/AuthBloc.dart';
 import 'package:hookah_nation_client_app/src/blocs/AuthEvent.dart';
 import 'package:hookah_nation_client_app/src/blocs/AuthState.dart';
+import 'package:hookah_nation_client_app/src/screens/HomeScreen.dart';
 
 enum AuthMode { LOGIN, SINGUP, FORGOTPASSWORD }
 
@@ -142,7 +143,10 @@ class AuthorizationScreenState extends State<AuthorizationScreen> {
                             left: 38, right: 38, top: 15, bottom: 15),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5)),
-                        onPressed: () => BlocProvider.of<AuthBloc>(context)..add(Login(username: _loginEmailController.text, password: _loginPasswordController.text)),
+                        onPressed: () {
+                          BlocProvider.of<AuthBloc>(context)..add(Login(username: _loginEmailController.text, password: _loginPasswordController.text));
+                          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => HomeScreen()));
+                        }
                       )
                     ],
                   )
@@ -252,7 +256,12 @@ class AuthorizationScreenState extends State<AuthorizationScreen> {
                             left: 38, right: 38, top: 15, bottom: 15),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5)),
-                        onPressed: () => BlocProvider.of<AuthBloc>(context)..add(Signup(username: _signupEmailController.text, password: _signupPasswordController.text)),
+                        onPressed: () {
+                          BlocProvider.of<AuthBloc>(context)..add(Signup(username: _signupEmailController.text, password: _signupPasswordController.text));
+                          setState(() {
+                            _authMode = AuthMode.LOGIN;
+                          });
+                        }
                       ),
                     ],
                   ),
