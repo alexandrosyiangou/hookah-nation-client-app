@@ -20,7 +20,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } else if (event is Signup) {
       print('Signup with username ${event.username} and password ${event.password}');
       await FirebaseAuthService().signupEmailPassword(email: event.username, password: event.password);
-      yield SignedUp();
+      yield UnAuthenticatedLoaded();
     } else {
       print('Unknown event');
     }
